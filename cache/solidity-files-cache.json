@@ -1,8 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/mac/gitRepos/hardhatswap/contracts/Lock.sol": {
-      "lastModificationDate": 1777300574821,
+    "/Users/mac/gitRepos/hardhatswap/Uniswap-V3-Single-Swaps-for-Multi-ERC20-Tokens/contracts/Lock.sol": {
+      "lastModificationDate": 1777327219585,
       "contentHash": "5daa40c22d3a9841af8edcaaabc57c7c",
       "sourceName": "contracts/Lock.sol",
       "solcConfig": {
@@ -37,9 +37,9 @@
         "Lock"
       ]
     },
-    "/Users/mac/gitRepos/hardhatswap/contracts/UniswapV3ETHSwapper.sol": {
-      "lastModificationDate": 1777319846075,
-      "contentHash": "105a59016f6f696ad9513761376a2cfd",
+    "/Users/mac/gitRepos/hardhatswap/Uniswap-V3-Single-Swaps-for-Multi-ERC20-Tokens/contracts/UniswapV3ETHSwapper.sol": {
+      "lastModificationDate": 1777405705975,
+      "contentHash": "095d81095516a59c094fa74e156b9218",
       "sourceName": "contracts/UniswapV3ETHSwapper.sol",
       "solcConfig": {
         "version": "0.8.28",
@@ -77,8 +77,8 @@
         "UniswapV3ETHSwapper"
       ]
     },
-    "/Users/mac/gitRepos/hardhatswap/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-      "lastModificationDate": 1777304651921,
+    "/Users/mac/gitRepos/hardhatswap/Uniswap-V3-Single-Swaps-for-Multi-ERC20-Tokens/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1777327220712,
       "contentHash": "9261adf6457863de3e9892f51317ec89",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
@@ -113,10 +113,10 @@
         "IERC20"
       ]
     },
-    "/Users/mac/gitRepos/hardhatswap/contracts/UniswapV3ETHSwapper copy.sol": {
-      "lastModificationDate": 1777320156439,
-      "contentHash": "d3861898558668cf969ec611d0d151e3",
-      "sourceName": "contracts/UniswapV3ETHSwapper copy.sol",
+    "/Users/mac/gitRepos/hardhatswap/Uniswap-V3-Single-Swaps-for-Multi-ERC20-Tokens/contracts/UniswapV3SwapExamples.sol": {
+      "lastModificationDate": 1777327219585,
+      "contentHash": "1968172a225c73eed0b2131a123be57b",
+      "sourceName": "contracts/UniswapV3SwapExamples.sol",
       "solcConfig": {
         "version": "0.8.28",
         "settings": {
@@ -141,16 +141,51 @@
           }
         }
       },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.20"
       ],
       "artifacts": [
+        "IERC20",
         "ISwapRouter",
         "IWETH",
-        "UniswapV3ETHSwapperTwo"
+        "UniswapV3SwapExamples"
+      ]
+    },
+    "/Users/mac/gitRepos/hardhatswap/Uniswap-V3-Single-Swaps-for-Multi-ERC20-Tokens/contracts/interfaces/IQuoter.sol": {
+      "lastModificationDate": 1777398564358,
+      "contentHash": "9c4b6569ae741ee61a4b8ee8df060e62",
+      "sourceName": "contracts/interfaces/IQuoter.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.5"
+      ],
+      "artifacts": [
+        "IQuoter"
       ]
     }
   }

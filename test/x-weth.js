@@ -1,4 +1,3 @@
-const { formatUnits } = require("ethers");
 const { formatEther } = require("ethers");
 const { ethers } = require("hardhat");
 
@@ -37,29 +36,14 @@ async function main() {
     LINK
   );
 
-  // =====================================================
-  // STEP 1: Wrap ETH -> WETH
-  // =====================================================
-
-  const ethToWrap = ethers.parseEther("10"); // wrap 1 ETH
-
-  console.log(`Wrapping ${ethers.formatEther(ethToWrap)} ETH to WETH...`);
-
-  const wrapTx = await swapper.wrapETH({
-    value: ethToWrap,
-  });
-
-  await wrapTx.wait();
-
-  console.log("ETH wrapped successfully");
 
   // =====================================================
   // STEP 2: Check WETH Balance
   // =====================================================
 
-  const wethBalance = await weth.balanceOf(deployer.address);
+  const wethBalance = await link.balanceOf(deployer.address);
 
-  console.log("WETH balance:", ethers.formatEther(wethBalance));
+  console.log("X balance:", ethers.formatEther(wethBalance));
 
   if (wethBalance === 0n) {
     throw new Error("No WETH received after wrapping");
@@ -71,7 +55,7 @@ async function main() {
 
   console.log("Approving WETH to swap contract...");
 
-  const approveTx = await weth.approve(
+  const approveTx = await link.approve(
     swapperAddress,
     wethBalance
   );
@@ -91,24 +75,25 @@ async function main() {
   // console.log(wethBalance);
   
   const amountOut = await quoter.quoteExactInputSingle.staticCall(
+     LINK,
     WETH,
-    LINK,
     fee,
     wethBalance,
     0
   );
 
-  console.log("Expected LINK output:", ethers.formatEther(amountOut));
+  console.log("Expected WETH output:", ethers.formatEther(amountOut));
 
   // =====================================================
   // STEP 4: Swap WETH -> LINK
   // =====================================================
 
-  console.log("Swapping WETH -> LINK...");
+  console.log("Swapping X -> WETH...");
 
   const swapTx = await swapper.swapTokenForToken(
+    LINK,     
     WETH,         // tokenIn
-    LINK,         // tokenOut
+        // tokenOut
     fee,          // pool fee
     wethBalance,  // amountIn
     0             // amountOutMinimum (unsafe for production)
@@ -122,9 +107,9 @@ async function main() {
   // STEP 5: Final LINK Balance
   // =====================================================
 
-  const linkBalance = await link.balanceOf(deployer.address);
+  const linkBalance = await weth.balanceOf(deployer.address);
 
-  console.log("Final LINK balance:", formatUnits(linkBalance,6) );
+  console.log("Final WETH balance:", formatEther(linkBalance));
 }
 
 main().catch((error) => {

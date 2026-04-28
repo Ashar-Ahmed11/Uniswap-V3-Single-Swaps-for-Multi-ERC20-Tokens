@@ -1,0 +1,59 @@
+```gitignore
+# Dependencies
+node_modules/
+
+# Hardhat artifacts
+artifacts/
+cache/
+typechain/
+typechain-types/
+
+# Coverage reports
+coverage/
+coverage.json
+
+# Test reports
+test-results/
+reports/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Hardhat local network files
+hardhat-network.json
+
+# Deployment files (optional - remove if you want to track them)
+deployments/
+
+# Solidity coverage
+.solcover.js
+
+# Temporary files
+tmp/
+temp/
+
+# Package lock files (optional - keep if you want reproducible installs)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+```
