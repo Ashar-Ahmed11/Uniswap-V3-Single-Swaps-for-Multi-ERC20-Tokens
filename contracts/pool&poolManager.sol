@@ -238,17 +238,49 @@ contract Pool is UniswapV3ETHSwapper {
             IERC20 tradedToken = IERC20(_tradeToken);
             tradeTokens++;
             uint256 tradeTokenAmount = tradedToken.balanceOf(address(this));
-            uint256 tokenEntryPrice = tradeTokenAmount/_tradeAmount;
+
+
+            // uint256 previousTokenPrice =  tradeTokenById[tradeTokens].tokenEntryPrice;
+            // uint256 currentTokenPrice = tradeTokenAmount*1e18/_tradeAmount;
+            // uint256 tokenEntryPrice = previousTokenPrice==0?currentTokenPrice:(previousTokenPrice+currentTokenPrice)/2;
+
+//   uint256 previousTokenPrice =  tradeTokenById[tradeTokens].tokenEntryPrice;
+            // uint256 currentTokenPrice = tradeTokenAmount*1e18/_tradeAmount;
+            uint256 tokenEntryPrice = tradeTokenAmount*1e18/_tradeAmount;
+
+
             tradeTokenById[tradeTokens] = tradeToken(_tradeToken,tradeTokenAmount,tokenEntryPrice,0,Status.Ongoing);
             for(uint256 i=1;i<=membersOfPools;i++){
-                    uint256 memberPoolShare = memberTokenBalance[memberAddress[i]]/poolTokenAmount;
-                    uint256 memberTradeShare = (tradedToken.balanceOf(address(this))*memberPoolShare)/100;
+                    uint256 memberTradeShare =  (tradedToken.balanceOf(address(this)) * memberTokenBalance[memberAddress[i]]) / poolTokenAmount;
                     tradeTokenBalance[memberAddress[i]][tradeTokens] += memberTradeShare;
                 }
                 poolTokenAmount-=_tradeAmount;
 
     }
 
+     function dca(uint256 tradeTokenId, uint256 _tradeAmount) public payable {
+            require(msg.sender==poolAdmin,"You are not the admin of the pool");
+          // must approve pooltoken to the contract
+            address _tradeToken = tradeTokenById[tradeTokenId].tokenAddress;
+            swapTokenForToken(address(poolToken),address(_tradeToken),3000,_tradeAmount,address(this));
+            IERC20 tradedToken = IERC20(_tradeToken);
+            uint256 tradeTokenAmount = tradedToken.balanceOf(address(this));
+            uint256 newTradeAmount = tradedToken.balanceOf(address(this))-tradeTokenById[tradeTokenId].tokenTotalBalance;
+
+            uint256 previousTokenPrice =  tradeTokenById[tradeTokenId].tokenEntryPrice;
+            uint256 currentTokenPrice = newTradeAmount*1e18/_tradeAmount;
+            uint256 tokenEntryPrice = (previousTokenPrice+currentTokenPrice)/2;
+
+
+
+            tradeTokenById[tradeTokenId] = tradeToken(_tradeToken,tradeTokenAmount,tokenEntryPrice,0,Status.Ongoing);
+            for(uint256 i=1;i<=membersOfPools;i++){
+                    uint256 memberTradeShare =  (tradedToken.balanceOf(address(this)) * memberTokenBalance[memberAddress[i]]) / poolTokenAmount;
+                    tradeTokenBalance[memberAddress[i]][tradeTokenId] += memberTradeShare;
+                }
+                poolTokenAmount-=_tradeAmount;
+
+    }
 
 
 }
